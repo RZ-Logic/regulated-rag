@@ -1,0 +1,22 @@
+# Corpus definitions for v0.1.
+# Architecture is corpus-agnostic; this file is the swap point.
+# Per CONTEXT.md: "The corpus is data, not architecture."
+
+sources:
+  fdcpa:
+    name: Fair Debt Collection Practices Act
+    citation: "15 U.S.C. §§ 1692–1692p"
+    download_url: https://www.law.cornell.edu/uscode/text/15/chapter-41/subchapter-V
+    download_format: html
+    chunking_strategy: section_based
+    chunk_grain: section
+    citation_format: "FDCPA § {section_ref}"
+
+  california_ewa:
+    name: California Earned Wage Access Registration
+    citation: "California DFPI EWA Registration Framework"
+    download_url: TBD  # populated during ingestion in hour 4
+    download_format: html
+    chunking_strategy: heading_based
+    chunk_grain: section_heading
+    citation_format: "CA EWA: {section_ref}"

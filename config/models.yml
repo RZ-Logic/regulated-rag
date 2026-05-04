@@ -1,0 +1,29 @@
+# Pinned model versions — all stochastic components version-locked.
+# Per CONTEXT.md: "voyage-3-large vs voyage-3-large-2025-09-15 is the difference
+# between reproducible and unreproducible, which is the difference between
+# an audit artifact and a demo."
+
+embedding:
+  provider: voyage
+  model: voyage-3-large
+  dimensions: 1024
+  input_type_query: query
+  input_type_document: document
+
+reranker:
+  provider: cohere
+  model: rerank-v3.5
+  top_n: 5
+
+
+generator:
+  provider: anthropic
+  # Anthropic exposes only the alias for Sonnet 4.6 on direct API; no separate
+  # dated snapshot string is published (verified against
+  # docs.claude.com/en/docs/about-claude/models/overview, May 2026).
+  # Reproducibility is supported by: (1) this string pin, which Anthropic
+  # guarantees is stable per their snapshot-date policy, and (2) logging
+  # request_id from every API response into runs/ for post-hoc verification.
+  model: claude-sonnet-4-6
+  max_tokens: 1024
+  temperature: 0.0
