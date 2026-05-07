@@ -250,7 +250,7 @@ For a reviewer with limited time, the recommended path:
 
 If you want depth on a specific cut:
 
-- **[`BUILD-DECISIONS.md`](./BUILD-DECISIONS.md)** — five non-obvious choices, the alternatives rejected, and the empirical evidence for each. The parser-archaeology three-rewrites story; the hour-6/hour-7 architectural finding that produced the named-regulation pre-check; the top-1 vs aggregate refusal threshold call.
+- **[`BUILD-DECISIONS.md`](./BUILD-DECISIONS.md)** — five non-obvious choices, the alternatives rejected, and the empirical evidence for each. The parser-archaeology three-rewrites story; the adjacent-domain finding that produced the named-regulation pre-check; the top-1 vs aggregate refusal threshold call.
 - **[`PRIOR-ART.md`](./PRIOR-ART.md)** — the literature this repo samples (Radio-RAG, TraceRetriever, RAGulating, Tensorlake, Anthropic Contextual Retrieval, RRF, rageval-oran) and the differentiation argument at the intersection.
 - **[`CORPUS-NOTES.md`](./CORPUS-NOTES.md)** — provenance and chunking decisions. Where the FDCPA text comes from, why Cornell LII, what BM25 indexes (and why not more), what's deferred to v0.2.
 
@@ -260,7 +260,7 @@ Total core read: ~15 minutes. With one depth file: ~20 minutes.
 
 ## 🛠️ Build Decisions
 
-Five non-obvious architectural choices, the alternatives rejected, and the empirical evidence for each — including the parser-archaeology three rewrites and the hour-6/hour-7 finding that produced the named-regulation pre-check.
+Five non-obvious architectural choices, the alternatives rejected, and the empirical evidence for each — including the parser-archaeology three rewrites and the adjacent-domain finding that produced the named-regulation pre-check.
 
 → **[`BUILD-DECISIONS.md`](./BUILD-DECISIONS.md)**
 
@@ -295,7 +295,7 @@ These aren't limitations — they're properties of v0.1's scope.
 - **The corpus is a fixture, not a live feed.** FDCPA is downloaded as static documents from Cornell LII with version dates recorded. The architecture supports re-ingestion (`ingest_fdcpa.py --force`); v0.1's demonstration does not include scheduled corpus refresh. v0.2 switches to canonical XML at `uscode.house.gov` to eliminate Cornell LII's class-name inconsistencies entirely.
 - **California EWA is deferred to v0.2.** [`CORPUS-NOTES.md`](./CORPUS-NOTES.md) documents the scope cut: ship FDCPA clean against the architectural goal before adding a second corpus. A two-source v0.1 would entangle corpus expansion with retrieval-quality measurement; the architectural argument stands or falls on a single corpus.
 - **The eval set is small (20 queries) by design.** This is v0.1 demonstrating the harness, not a production-scale evaluation. Eval-set size grows with the deliverable. v0.1 is methodology demonstration.
-- **No formal dev/test split.** Threshold 0.30 was tuned against hour-5 smoke + hour-6 edge probes — the de-facto dev set. Splitting N=20 into formal dev/test would be methodological theater. v0.2 with a larger eval set splits.
+- **No formal dev/test split.** Threshold 0.30 was tuned against smoke tests + adversarial edge-case probes — the de-facto dev set. Splitting N=20 into formal dev/test would be methodological theater. v0.2 with a larger eval set splits.
 
 Each item has a roadmap entry below.
 
@@ -313,7 +313,7 @@ Each item has a roadmap entry below.
 - [ ] **v0.2 — Named-regulation pre-check moved before retrieval** — Currently inside `generate_from_retrieval()`; architecturally belongs as the first deterministic gate. Saves a Voyage embed + Cohere rerank pair on every named-regulation refusal.
 - [ ] **v0.2 — Aggressive GENERATOR_DECLINED probes in eval set** — e.g., interest-rate-cap query that pulls § 808 above threshold but where the answer genuinely isn't in FDCPA. Forces the LLM-decline path to fire.
 - [ ] **v0.2 — Postgres `to_tsvector` + GIN index for BM25** — Move BM25 from in-memory to Postgres-backed; survives process restart, scales past low thousands of chunks.
-- [ ] **v0.2 — Idempotent schema build** — Replace manual Supabase Table Editor schema with `psql -f db/schema.sql`. Closes the NULL-constraint mismatch surfaced in hour 1.
+- [ ] **v0.2 — Idempotent schema build** — Replace manual Supabase Table Editor schema with `psql -f db/schema.sql`. Closes the NULL-constraint mismatch surfaced during initial schema setup.
 - [ ] **v1.0 — Larger eval set with formal dev/test split** — 50–100 queries; threshold tuning becomes non-trivial; both dev and test sets versioned alongside model pins.
 - [ ] **v1.0 — LLM-as-judge for faithfulness/answer-relevance at scale** — Judge alias-pinned, `request_id`s logged, calibrated against the v0.1 hand-graded baseline so drift is measurable.
 - [ ] **v1.0 — Domain-fine-tuned reranker** — Training data feasible from accumulated v0.1 + v0.2 hand-graded corpora.

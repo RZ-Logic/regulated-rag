@@ -24,12 +24,12 @@ regulated-rag does not exist in a vacuum. The architectural decisions draw delib
 
 ## Citation-grounding patterns
 
-- **Tensorlake, *"Citation-Aware RAG: How to add Fine Grained Citations"* (Sept 2025)** — the most published-thinking-aligned reference for fine-grained citations via metadata anchors (page numbers, paragraph IDs, bounding boxes). Validates the metadata-rich chunking approach. Frames citation as a *retrieval/synthesis* property; this repo extends the pattern to citation as a *post-generation deterministic check* — the validation step that fails closed when the model cites a chunk it did not see in the retrieved set.
+- **Tensorlake, *"Citation-Aware RAG: How to add Fine Grained Citations"* (blog post, Sept 2025)** — the most published-thinking-aligned reference for fine-grained citations via metadata anchors (page numbers, paragraph IDs, bounding boxes). Validates the metadata-rich chunking approach. Frames citation as a *retrieval/synthesis* property; this repo extends the pattern to citation as a *post-generation deterministic check* — the validation step that fails closed when the model cites a chunk it did not see in the retrieved set.
 
 ## Eval methodology
 
 - **[`cheddarhub/rageval-oran`](https://github.com/cheddarhub/rageval-oran) — *"Benchmarking Vector, Graph and Hybrid RAG Pipelines for Open Radio Access Networks"* ([arXiv 2507.03608](https://arxiv.org/abs/2507.03608))** — the four eval metrics adopted here (faithfulness, answer relevance, context relevance, factual correctness) and the methodology of independent metric reporting rather than a single accuracy number.
-- **Jason Liu, *"Systematically Improving RAG"*** — the eval-and-improve framing; retrieval quality is the largest lever before generation tuning.
+- **Jason Liu, *"Systematically Improving RAG"* (essay series / course)** — the eval-and-improve framing; retrieval quality is the largest lever before generation tuning.
 
 ## Retrieval methodology references
 
@@ -41,7 +41,7 @@ regulated-rag does not exist in a vacuum. The architectural decisions draw delib
 
 - **FinAgent OS (this author)** — the *"Where is the AI?"* enumeration pattern, adapted as *"Where is the LLM?"* for the retrieval pipeline. The architectural principle that the stochastic component is bounded by deterministic checks transfers directly.
 - **NIST AI Risk Management Framework, Generative AI Profile (NIST AI 600-1)** — the framing that AI system risk requires structural identification of where stochastic decisions occur. Read for orientation; not a binding standard for this repo.
-- (LangChain and LlamaIndex were evaluated and explicitly rejected for v0.1. The framework abstractions are studied, not unknown — raw SDK is the seniority signal and the portfolio-continuity choice. See [`BUILD-DECISIONS.md`](./BUILD-DECISIONS.md) for the trade-off narrative.)
+- (LangChain and LlamaIndex were evaluated and explicitly rejected for v0.1. The framework abstractions are studied, not unknown — raw SDK is the portfolio-continuity choice. See [`BUILD-DECISIONS.md`](./BUILD-DECISIONS.md) Decision #6 for the trade-off narrative.)
 
 ## Regulatory anchors
 
