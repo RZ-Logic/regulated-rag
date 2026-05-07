@@ -1,0 +1,491 @@
+# regulated-rag v0.1 — evaluation set
+#
+# 20 hand-constructed queries: 12 in-corpus FDCPA + 8 out-of-corpus split
+# across the three constructible refusal paths from the hour-7 four-prong
+# refusal taxonomy.
+#
+# CITATION_GROUNDING_FAILED is intentionally absent from this eval set.
+# It is an internal failsafe (cited chunk_id not in retrieved-top-5 set,
+# or claim without citations) and is not deliberately constructible with
+# a single canonical query. Its non-firing on the in-corpus set is the
+# right read; non-zero firing is a quality regression flag.
+#
+# Schema per query:
+#   id:                 stable identifier (append-only; never reused)
+#   category:           in_corpus | ooc_low_retrieval | ooc_named_regulation | ooc_generator_declined
+#   query:              the question as posed to the system
+#   expected:
+#     answered:         bool — true if a citation-grounded answer is expected
+#     citations:        list[str] — section_refs that should appear in the
+#                       cited set. Recall = (cited ∩ expected) / |expected|;
+#                       precision = (cited ∩ expected) / |cited|. Empty for
+#                       refused queries.
+#     refusal_reason:   enum — LOW_RETRIEVAL_CONFIDENCE |
+#                       NAMED_REGULATION_NOT_IN_CORPUS | GENERATOR_DECLINED |
+#                       CITATION_GROUNDING_FAILED. null if answered=true.
+#     detected_regulation: str|null — for ooc_named_regulation only, the
+#                       human-readable name expected from the regex match.
+#                       Informational; refusal correctness judges on
+#                       refusal_reason alone.
+#     answer_summary:   prose — what a correct answer covers, used for
+#                       hand-graded faithfulness and answer relevance against
+#                       generated claims.
+#   notes:              str — what this query is testing (architectural intent)
+
+queries:
+
+  # =====================================================================
+  # IN-CORPUS FDCPA  (n=12)
+  # =====================================================================
+
+  - id: fdcpa-001
+    category: in_corpus
+    query: "Can a debt collector call me before 8am or after 9pm?"
+    expected:
+      answered: true
+      citations: ["§ 805(a)(1)"]
+      refusal_reason: null
+      answer_summary: |
+        FDCPA § 805(a)(1) prohibits a debt collector from communicating
+        with a consumer at any unusual time or place known to be
+        inconvenient, with the convenient time presumed to be 8 AM to
+        9 PM local time at the consumer's location, absent knowledge
+        of circumstances to the contrary.
+    notes: >
+      Hour-5 anchor. Vector-clean: § 805(a)(1) literally contains "8 ante
+      meridiem" / "9 post meridiem". Confirms the pipeline doesn't break
+      the easy case.
+
+  - id: fdcpa-002
+    category: in_corpus
+    query: "What conduct does the FDCPA prohibit as harassment by debt collectors?"
+    expected:
+      answered: true
+      citations: ["§ 806", "§ 806(1)", "§ 806(2)", "§ 806(3)", "§ 806(5)", "§ 806(6)"]
+      refusal_reason: null
+      answer_summary: |
+        FDCPA § 806 prohibits any conduct the natural consequence of which
+        is to harass, oppress, or abuse any person in connection with
+        debt collection, and enumerates specific prohibited practices:
+        threats of violence (806(1)), obscene or profane language (806(2)),
+        publishing lists of nonpaying consumers (806(3)), telephone calls
+        without disclosure of identity (806(6)), and causing the telephone
+        to ring repeatedly with intent to annoy (806(5)), among others.
+    notes: >
+      Flat-enumeration test (§ 806/1692d). Multiple expected citations
+      because "harassment" is genuinely a multi-section concept; recall
+      against any-of-list is the right read. The framing clause § 806
+      itself is operative law (the chapeau prohibition on harassment),
+      and individual numbered prohibitions are also acceptable.
+
+  - id: fdcpa-003
+    category: in_corpus
+    query: "What information must a debt collector send me to validate a debt?"
+    expected:
+      answered: true
+      citations: ["§ 809(a)"]
+      refusal_reason: null
+      answer_summary: |
+        FDCPA § 809(a) requires the debt collector, within five days
+        after the initial communication with the consumer, to send
+        written notice containing: the amount of the debt; the name of
+        the creditor to whom the debt is owed; a statement that unless
+        the consumer disputes the debt within thirty days, the debt
+        will be assumed valid; a statement that if the consumer disputes
+        in writing within thirty days, the collector will obtain
+        verification; and a statement that on written request within
+        thirty days, the collector will provide the name and address of
+        the original creditor if different.
+    notes: >
+      Most-cited FDCPA provision in practice. Validation-notice
+      requirements are the highest-traffic real-world FDCPA query
+      pattern; this is the regulatory-precision test.
+
+  - id: fdcpa-004
+    category: in_corpus
+    query: "Can a debt collector contact me at my workplace?"
+    expected:
+      answered: true
+      citations: ["§ 805(a)(3)"]
+      refusal_reason: null
+      answer_summary: |
+        FDCPA § 805(a)(3) prohibits a debt collector from contacting a
+        consumer at the consumer's place of employment if the collector
+        knows or has reason to know that the consumer's employer
+        prohibits the consumer from receiving such communications.
+    notes: >
+      Standard subsection retrieval test. Section text uses "place of
+      employment" (statutory phrasing) but query uses "workplace"
+      (colloquial) — minor semantic-bridge test.
+
+  - id: fdcpa-005
+    category: in_corpus
+    query: "What happens if I tell a debt collector that I have an attorney?"
+    expected:
+      answered: true
+      citations: ["§ 805(a)(2)"]
+      refusal_reason: null
+      answer_summary: |
+        FDCPA § 805(a)(2) requires the debt collector to communicate
+        with the consumer's attorney rather than the consumer if the
+        collector knows the consumer is represented by an attorney with
+        respect to the debt and has knowledge of (or can readily
+        ascertain) the attorney's name and address, unless the attorney
+        fails to respond within a reasonable time or consents to direct
+        contact.
+    notes: >
+      Conditional-rule test (the rule has exceptions baked in). The
+      generator must capture the "unless attorney fails to respond"
+      qualifier — answer-relevance grading checks this.
+
+  - id: fdcpa-006
+    category: in_corpus
+    query: "How does the FDCPA define a debt collector?"
+    expected:
+      answered: true
+      citations: ["§ 803(6)"]
+      refusal_reason: null
+      answer_summary: |
+        FDCPA § 803(6) defines "debt collector" as any person who uses
+        any instrumentality of interstate commerce or the mails in any
+        business the principal purpose of which is the collection of
+        any debts, or who regularly collects or attempts to collect,
+        directly or indirectly, debts owed or due or asserted to be
+        owed or due another. The definition includes specific
+        enumerated exclusions (e.g., creditors collecting their own
+        debts under their own name; officers/employees of a creditor
+        collecting in the creditor's name).
+    notes: >
+      Definitions-list test (§ 803/1692a). The chunker emits one chunk
+      per definition; § 803(6) is the "debt collector" entry. If the
+      cited section_ref doesn't match § 803(6) format, that's a
+      chunker-format finding worth investigating before declaring the
+      query failed.
+
+  - id: fdcpa-007
+    category: in_corpus
+    query: "How do I get a debt collector to stop calling me?"
+    expected:
+      answered: true
+      citations: ["§ 805(c)"]
+      refusal_reason: null
+      answer_summary: |
+        FDCPA § 805(c) provides that if a consumer notifies the debt
+        collector in writing that the consumer refuses to pay the debt
+        or wishes the collector to cease further communication, the
+        collector must cease further communication with the consumer
+        with respect to that debt, except to advise the consumer that
+        the collector's further efforts are being terminated, to notify
+        the consumer that the collector or creditor may invoke specified
+        remedies, or to notify the consumer that the collector or
+        creditor intends to invoke a specified remedy.
+    notes: >
+      Cease-communication test. § 805(c) has a chapeau + continuation
+      pair (one of the legitimate duplicate section_refs in the
+      corpus); both chunks should be retrievable. The "in writing"
+      qualifier and the three permitted post-cease communications are
+      both load-bearing for answer relevance.
+
+  - id: fdcpa-008
+    category: in_corpus
+    query: "Can a debt collector tell my family or my employer about my debt?"
+    expected:
+      answered: true
+      citations: ["§ 805(b)"]
+      refusal_reason: null
+      answer_summary: |
+        FDCPA § 805(b) prohibits a debt collector, without the prior
+        consent of the consumer given directly to the debt collector
+        or the express permission of a court of competent jurisdiction,
+        from communicating, in connection with the collection of any
+        debt, with any person other than the consumer, the consumer's
+        attorney, a consumer reporting agency if otherwise permitted
+        by law, the creditor, the attorney of the creditor, or the
+        attorney of the debt collector.
+    notes: >
+      Third-party communication rule. The closed list of permitted
+      contacts is the operative content; family and employer are
+      conspicuously NOT on the list (location-info exception under
+      § 804 is separate and narrower).
+
+  - id: fdcpa-009
+    category: in_corpus
+    query: "Can a debt collector threaten to have me arrested?"
+    expected:
+      answered: true
+      citations: ["§ 807(4)"]
+      refusal_reason: null
+      answer_summary: |
+        FDCPA § 807(4) prohibits the representation or implication that
+        nonpayment of any debt will result in the arrest or imprisonment
+        of any person, or the seizure, garnishment, attachment, or sale
+        of any property or wages of any person, unless such action is
+        lawful and the debt collector or creditor intends to take such
+        action. False threats of arrest are categorically prohibited.
+    notes: >
+      False-representations test. § 807(4) sits in a long enumerated
+      list under § 807; the cited subsection is specific to arrest
+      threats. The "unless lawful and intended" qualifier matters
+      for answer relevance — most arrest threats fail one or both
+      conditions.
+
+  - id: fdcpa-010
+    category: in_corpus
+    query: "Can a debt collector deposit my postdated check before the date on it?"
+    expected:
+      answered: true
+      citations: ["§ 808(2)", "§ 808(3)", "§ 808(4)"]
+      refusal_reason: null
+      answer_summary: |
+        FDCPA § 808 prohibits unfair or unconscionable means of debt
+        collection, with specific provisions on postdated payment
+        instruments: § 808(2) prohibits accepting any check or other
+        payment instrument postdated by more than five days unless the
+        collector notifies the consumer in writing of intent to deposit
+        between three and ten business days prior; § 808(3) prohibits
+        soliciting any postdated check for the purpose of threatening
+        or instituting criminal prosecution; § 808(4) prohibits
+        depositing or threatening to deposit a postdated check or
+        instrument prior to the date on the check.
+    notes: >
+      Multi-subsection test — postdated checks are addressed in three
+      adjacent provisions, and a complete answer cites the cluster.
+      Recall against the list is the right read; partial credit if
+      only the most direct (§ 808(4)) is cited.
+
+  - id: fdcpa-011
+    category: in_corpus
+    query: "What does § 805 cover?"
+    expected:
+      answered: true
+      citations: ["§ 805", "§ 805(a)"]
+      refusal_reason: null
+      answer_summary: |
+        FDCPA § 805 (Communication in connection with debt collection)
+        governs when, where, and with whom a debt collector may
+        communicate about a debt. Subsection (a) restricts
+        communication with the consumer (time/place restrictions,
+        attorney-representation rule, workplace rule); subsection (b)
+        prohibits third-party communications absent consent or
+        court order; subsection (c) provides for cease-communication
+        upon written request; subsection (d) defines "consumer" for
+        purposes of § 805 to include spouse, parent (if minor),
+        guardian, executor, or administrator.
+    notes: >
+      Citation-string query (BM25 fallback test). Hour-6 finding was
+      that Voyage handles citation-form mappings semantically as well,
+      but BM25 still adds the literal § 805 anchor. Either § 805
+      framing or § 805(a) is acceptable as the primary citation.
+
+  - id: fdcpa-012
+    category: in_corpus
+    query: "If I tell the debt collector verbally to stop, do they have to listen, or do I need to put it in writing?"
+    expected:
+      answered: true
+      citations: ["§ 805(c)"]
+      refusal_reason: null
+      answer_summary: |
+        FDCPA § 805(c)'s cease-communication right is triggered only by
+        written notification from the consumer. A verbal request does
+        not invoke the statutory duty to cease; the consumer must
+        notify the collector in writing that they refuse to pay or
+        wish communication to cease.
+    notes: >
+      Buried-answer test (semantic-only retrieval). The query language
+      "verbally", "have to listen", "put it in writing" doesn't share
+      keyword surface with the statutory text "consumer notifies a
+      debt collector in writing" — vector retrieval and the reranker
+      have to bridge the semantic gap. BM25 contributes minimally
+      here (no shared distinctive tokens). The same answer chunk as
+      fdcpa-007 but a stress test on the retrieval pathway, not
+      the keyword pathway.
+
+  # =====================================================================
+  # OUT-OF-CORPUS — LOW_RETRIEVAL_CONFIDENCE  (n=3)
+  # Truly off-topic queries; no FDCPA chunk should clear the 0.30
+  # rerank-score threshold.
+  # =====================================================================
+
+  - id: ooc-001-low
+    category: ooc_low_retrieval
+    query: "What is the speed limit on California highways?"
+    expected:
+      answered: false
+      citations: []
+      refusal_reason: LOW_RETRIEVAL_CONFIDENCE
+      answer_summary: |
+        Not in corpus. The system should refuse with
+        LOW_RETRIEVAL_CONFIDENCE because retrieval cannot find any
+        FDCPA chunk above the rerank-score threshold for a traffic-law
+        query.
+    notes: >
+      Smoke-harness query (h7). Maximally off-topic — no semantic
+      overlap with FDCPA. Top reranker score should be far below 0.30.
+
+  - id: ooc-002-low
+    category: ooc_low_retrieval
+    query: "What's the best way to invest in cryptocurrency?"
+    expected:
+      answered: false
+      citations: []
+      refusal_reason: LOW_RETRIEVAL_CONFIDENCE
+      answer_summary: |
+        Not in corpus. Crypto investment is unrelated to FDCPA's
+        debt-collection regulation. Refusal expected via the
+        retrieval-threshold path.
+    notes: >
+      Off-topic with mild keyword adjacency ("invest" / "money") that
+      could in principle pull weak FDCPA hits — checks the threshold
+      isn't too permissive on tangentially money-adjacent queries.
+
+  - id: ooc-003-low
+    category: ooc_low_retrieval
+    query: "How do I bake chocolate chip cookies?"
+    expected:
+      answered: false
+      citations: []
+      refusal_reason: LOW_RETRIEVAL_CONFIDENCE
+      answer_summary: |
+        Not in corpus. Cooking is maximally off-topic; refusal expected.
+    notes: >
+      Maximum semantic distance check. If any FDCPA chunk clears
+      threshold for a cookie recipe query, the threshold or the
+      embedding model has a problem worth investigating.
+
+  # =====================================================================
+  # OUT-OF-CORPUS — NAMED_REGULATION_NOT_IN_CORPUS  (n=3)
+  # Regex pre-check should fire BEFORE retrieval, before LLM call.
+  # =====================================================================
+
+  - id: ooc-004-namedreg
+    category: ooc_named_regulation
+    query: "What does Regulation F say about debt collector calls?"
+    expected:
+      answered: false
+      citations: []
+      refusal_reason: NAMED_REGULATION_NOT_IN_CORPUS
+      detected_regulation: "Regulation F"
+      answer_summary: |
+        Not in corpus (v0.1). Regulation F (12 CFR Part 1006) is the
+        CFPB's implementing rule for FDCPA — semantically in scope
+        but not in the v0.1 corpus. Refusal expected from the
+        named-regulation pre-check before any LLM call.
+    notes: >
+      The hour-6 architectural finding made enforceable in hour 7.
+      Top reranker score is expected to be ABOVE threshold here
+      (retrieval pulls plausible FDCPA chunks for "debt collector
+      calls") — the pre-check is the only thing that catches it.
+      Smoke-harness query (h7).
+
+  - id: ooc-005-namedreg
+    category: ooc_named_regulation
+    query: "How does GDPR apply to debt collection?"
+    expected:
+      answered: false
+      citations: []
+      refusal_reason: NAMED_REGULATION_NOT_IN_CORPUS
+      detected_regulation: "GDPR"
+      answer_summary: |
+        Not in corpus. GDPR is EU privacy/data-protection law; FDCPA
+        is U.S. federal debt-collection statute. Different jurisdiction,
+        different subject matter. Refusal via named-regulation
+        pre-check.
+    notes: >
+      Cross-jurisdictional pre-check test. The query mixes a foreign
+      regulation ("GDPR") with an in-corpus topic ("debt collection")
+      — the pre-check fires on the regulation name, not the topic.
+
+  - id: ooc-006-namedreg
+    category: ooc_named_regulation
+    query: "What does the Truth in Lending Act require for debt collectors?"
+    expected:
+      answered: false
+      citations: []
+      refusal_reason: NAMED_REGULATION_NOT_IN_CORPUS
+      detected_regulation: "Truth in Lending Act"
+      answer_summary: |
+        Not in corpus. TILA is U.S. consumer-credit disclosure law;
+        FDCPA is debt-collection law. Adjacent but distinct
+        regulations. Refusal via named-regulation pre-check.
+    notes: >
+      Adjacent-statute pre-check test. Both TILA and FDCPA are
+      consumer-finance federal statutes; the pre-check distinguishes
+      them by name match alone, not by semantic similarity.
+
+  # =====================================================================
+  # OUT-OF-CORPUS — GENERATOR_DECLINED  (n=2)
+  # FDCPA-adjacent topic; retrieval pulls plausible FDCPA chunks ABOVE
+  # threshold; but the ANSWER isn't in FDCPA. The generator's typed-
+  # decline is what catches these. If the threshold + named-reg layers
+  # caught these instead, that's a finding — would mean the four-prong
+  # taxonomy can collapse at this corpus scale.
+  # =====================================================================
+
+  - id: ooc-007-gendecline
+    category: ooc_generator_declined
+    query: "How long can a debt stay on my credit report?"
+    expected:
+      answered: false
+      citations: []
+      refusal_reason: GENERATOR_DECLINED
+      answer_summary: |
+        FDCPA does not address credit-report retention periods. That's
+        Fair Credit Reporting Act (FCRA) territory (15 U.S.C. § 1681c);
+        the seven-year general rule sits in FCRA, not FDCPA. The
+        retrieval layer is likely to pull § 805(b) (third-party
+        communication, including credit reporting agencies) or § 807
+        (false representations) above threshold because of the
+        "credit" keyword overlap, but a citation-grounded answer
+        cannot be produced from FDCPA text alone — the generator
+        should decline.
+    notes: >
+      Architecturally critical: this query exists specifically to
+      demonstrate that the threshold + named-regulation layers can
+      let through queries whose answer isn't in the corpus. The
+      generator's tool-call answered=false is the load-bearing
+      check. The query deliberately avoids "FCRA" / "fair credit
+      reporting" — those would trip the named-regulation regex.
+      "credit report" alone does not match the regex (verified
+      against generation.py OUT_OF_CORPUS_REGULATIONS).
+
+  - id: ooc-008-gendecline
+    category: ooc_generator_declined
+    query: "Can a debt collector freeze my bank account?"
+    expected:
+      answered: false
+      citations: []
+      refusal_reason: GENERATOR_DECLINED
+      answer_summary: |
+        FDCPA does not authorize or directly restrict bank account
+        levies. Whether a collector can freeze a bank account depends
+        on whether a court judgment has been obtained, and the
+        garnishment/levy procedure is governed by state civil procedure
+        and federal exemptions (e.g., Treasury rule on protected
+        federal benefits) — none of which is in this corpus. § 807
+        prohibits false threats of property seizure, and § 808
+        prohibits unfair collection means; both may be retrieved with
+        moderate confidence. The generator should decline rather than
+        cite an FDCPA section that doesn't actually answer the
+        operational question.
+    notes: >
+      Second GENERATOR_DECLINED test. Same architectural shape as
+      ooc-007 but on a different FDCPA-adjacent topic (civil procedure
+      / garnishment). Two queries gives some redundancy without
+      over-indexing on the path that's hardest to construct.
+
+# =====================================================================
+# Maintenance posture
+# =====================================================================
+# This file is append-only by id (never reuse a deleted id; insert new
+# ones at the end of the relevant category section). Re-grading existing
+# entries — when chunker output changes, when the corpus expands, when
+# the regex pre-check is updated — is allowed and expected. Re-grading
+# is documented in BUILD-LOG.md by hour.
+#
+# When v0.2 corpus expansion lands (Reg F, California EWA), the
+# ooc_named_regulation entries that match those names move OUT of OOC
+# and become in_corpus queries with expected citations against the
+# new corpus. The ooc-007/ooc-008 GENERATOR_DECLINED queries may stay
+# OOC or become in_corpus depending on whether v0.2 covers credit-
+# reporting and bank-levy procedure (likely not — those remain FCRA
+# and state-procedure territory respectively).

@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 360" width="100%" role="img" aria-labelledby="banner-title banner-desc" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif">
+  <title id="banner-title">regulated-rag</title>
+  <desc id="banner-desc">regulated-rag — citation-grounded, refusal-bounded retrieval for regulated-domain corpora. Six deterministic retrieval stages, one stochastic generation stage, two deterministic post-generation checks. The asymmetry is the architecture.</desc>
+
+  <rect width="1280" height="360" fill="#0B1220"/>
+
+  <g opacity="0.06" stroke="#94A3B8" stroke-width="0.5">
+    <line x1="0" y1="80"  x2="1280" y2="80"/>
+    <line x1="0" y1="280" x2="1280" y2="280"/>
+  </g>
+
+  <text x="80" y="116" font-size="56" font-weight="500" fill="#F8FAFC" letter-spacing="-0.5">regulated-rag</text>
+
+  <text x="80" y="160" font-size="20" font-weight="400" fill="#CBD5E1" letter-spacing="0.1">Citation-grounded, refusal-bounded retrieval for regulated-domain corpora.</text>
+
+  <line x1="170" y1="236" x2="1110" y2="236" stroke="#334155" stroke-width="0.5" stroke-dasharray="2 4"/>
+
+  <g font-size="11" font-weight="500" letter-spacing="0.2">
+    <g>
+      <rect x="170" y="210" width="88" height="52" rx="6" fill="none" stroke="#475569" stroke-width="0.75"/>
+      <text x="214" y="241" fill="#CBD5E1" text-anchor="middle">chunk</text>
+    </g>
+    <g>
+      <rect x="272" y="210" width="88" height="52" rx="6" fill="none" stroke="#475569" stroke-width="0.75"/>
+      <text x="316" y="241" fill="#CBD5E1" text-anchor="middle">embed</text>
+    </g>
+    <g>
+      <rect x="374" y="210" width="88" height="52" rx="6" fill="none" stroke="#475569" stroke-width="0.75"/>
+      <text x="418" y="241" fill="#CBD5E1" text-anchor="middle">vector</text>
+    </g>
+    <g>
+      <rect x="476" y="210" width="88" height="52" rx="6" fill="none" stroke="#475569" stroke-width="0.75"/>
+      <text x="520" y="241" fill="#CBD5E1" text-anchor="middle">bm25</text>
+    </g>
+    <g>
+      <rect x="578" y="210" width="88" height="52" rx="6" fill="none" stroke="#475569" stroke-width="0.75"/>
+      <text x="622" y="241" fill="#CBD5E1" text-anchor="middle">rrf</text>
+    </g>
+    <g>
+      <rect x="680" y="210" width="88" height="52" rx="6" fill="none" stroke="#475569" stroke-width="0.75"/>
+      <text x="724" y="241" fill="#CBD5E1" text-anchor="middle">rerank</text>
+    </g>
+
+    <g>
+      <rect x="800" y="206" width="88" height="60" rx="6" fill="#F59E0B" stroke="#FCD34D" stroke-width="1"/>
+      <text x="844" y="234" fill="#1E1B0E" text-anchor="middle" font-weight="500" font-size="11" letter-spacing="0.4">LLM</text>
+      <text x="844" y="252" fill="#1E1B0E" text-anchor="middle" font-size="9" font-weight="400" letter-spacing="0.3" opacity="0.75">stochastic</text>
+    </g>
+
+    <g>
+      <rect x="920" y="210" width="88" height="52" rx="6" fill="none" stroke="#475569" stroke-width="0.75"/>
+      <text x="964" y="241" fill="#CBD5E1" text-anchor="middle">cite-check</text>
+    </g>
+    <g>
+      <rect x="1022" y="210" width="88" height="52" rx="6" fill="none" stroke="#475569" stroke-width="0.75"/>
+      <text x="1066" y="241" fill="#CBD5E1" text-anchor="middle">refuse</text>
+    </g>
+  </g>
+
+  <g stroke="#64748B" stroke-width="0.75" fill="none">
+    <path d="M 170 282 L 170 290 L 768 290 L 768 282"/>
+    <path d="M 920 282 L 920 290 L 1110 290 L 1110 282"/>
+  </g>
+  <g font-size="11" font-weight="400" fill="#94A3B8" letter-spacing="0.3">
+    <text x="469" y="308" text-anchor="middle">six deterministic stages</text>
+    <text x="1015" y="308" text-anchor="middle">two deterministic checks</text>
+  </g>
+
+  <line x1="80" y1="178" x2="180" y2="178" stroke="#475569" stroke-width="0.75"/>
+
+  <text x="80" y="332" font-size="12" font-weight="400" fill="#64748B" letter-spacing="0.2">Where is the LLM? &#8212; bounded by deterministic checks on both sides. The asymmetry is the architecture.</text>
+
+  <text x="1200" y="332" font-size="11" font-weight="400" fill="#475569" text-anchor="end" letter-spacing="0.4">RZ-Logic / 2026</text>
+</svg>

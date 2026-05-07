@@ -1,0 +1,50 @@
+{
+  "n_queries_total": 20,
+  "n_queries_in_corpus": 12,
+  "n_queries_ooc": 8,
+  "n_errors": 0,
+  "deterministic": {
+    "in_corpus": {
+      "n": 12,
+      "retrieval_precision_at_5": "12/12",
+      "any_expected_cited": "12/12",
+      "citation_recall_mean": 0.833,
+      "citation_precision_mean": 0.464,
+      "citation_grounding_failed_count": 0
+    },
+    "ooc": {
+      "n": 8,
+      "refusal_correctness_overall": "6/8",
+      "by_path": {
+        "GENERATOR_DECLINED": "0/2",
+        "LOW_RETRIEVAL_CONFIDENCE": "3/3",
+        "NAMED_REGULATION_NOT_IN_CORPUS": "3/3"
+      }
+    }
+  },
+  "operational": {
+    "latency_p50_seconds": 5.092,
+    "latency_p95_seconds": 17.572,
+    "refusal_path_distribution": {
+      "answered": 12,
+      "low_retrieval_confidence": 5,
+      "named_regulation_not_in_corpus": 3
+    }
+  },
+  "hand_grading": {
+    "instructions": "Faithfulness and answer relevance require reading transcripts at runs/baseline-v0.1.jsonl. Per finance-agent-evals' 'read the transcripts' rule. Grade results into runs/baseline-v0.1-handgrading.json."
+  },
+  "ran_at": "2026-05-06T03:45:30+00:00",
+  "config": {
+    "embedding": "voyage-3-large",
+    "reranker": "rerank-v3.5",
+    "generator": "claude-sonnet-4-6",
+    "vector_top_k": 20,
+    "bm25_top_k": 20,
+    "rrf_k_constant": 60,
+    "return_top_k": 5,
+    "threshold": 0.3
+  },
+  "eval_set_path": "eval\\v0_1.yml",
+  "transcripts_path": "runs\\baseline-v0.1.jsonl"
+}

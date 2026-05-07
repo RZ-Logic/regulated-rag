@@ -1,5 +1,10 @@
 # Retrieval and refusal parameters.
-# Tuned on dev set (5 queries held out from 20-query eval set).
+#
+# Threshold provenance (hour 8 honesty pass): 0.30 was chosen empirically
+# during hour 5 smoke and hour 6 edge probes — the de-facto dev set. v0.1
+# does not perform a formal dev/test split. Splitting N=20 into formal
+# dev/test on a placeholder threshold is methodological theater. v0.2
+# with a larger eval set warrants the split. See BUILD-LOG.md hour 8.
 
 hybrid:
   vector_top_k: 20
@@ -11,7 +16,8 @@ reranker:
   return_top_k: 5
 
 refusal:
-  # Below this top-1 reranker score, system refuses with reason.
-  # Tuned on held-out dev set; revisit when corpus expands.
+  # Below this top-1 reranker score, the system refuses with reason
+  # LOW_RETRIEVAL_CONFIDENCE before any LLM call. Set against hour-5
+  # smoke and hour-6 edge probes; revisit when corpus expands.
   rerank_score_threshold: 0.3
   refusal_message: "The corpus does not contain sufficient information to answer this question with confidence."

@@ -1,26 +1,22 @@
-# Core dependencies — all version-pinned per CONTEXT.md reproducibility commitment
-
+# Core dependencies — all version-pinned per audit-grade reproducibility commitment
+ 
 # LLM SDKs
 anthropic==0.42.0
 voyageai==0.3.2
 cohere==5.13.0
-
+ 
 # Database
 psycopg[binary]==3.2.3
 pgvector==0.3.6
-
+ 
 # Retrieval
 rank-bm25==0.2.2
-
-# Data validation and config
-pydantic==2.10.3
+ 
+# HTML ingestion (Cornell LII fetch + parse for FDCPA chunker)
+beautifulsoup4==4.12.3
+requests==2.32.3
+ 
+# Config and environment
 python-dotenv==1.0.1
 pyyaml==6.0.2
-
-# Utilities
-tenacity==9.0.0
-tqdm==4.67.1
-
-# Testing
-pytest==8.3.4
-pytest-cov==6.0.0
+ 

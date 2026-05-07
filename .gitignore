@@ -3,6 +3,10 @@
 .env.local
 .env.*.local
 
+# Working docs (private)
+BUILD-LOG.md
+CONTEXT.md
+
 # Python
 __pycache__/
 *.py[cod]
@@ -51,6 +55,11 @@ data/processed/
 .pytest_cache/
 .coverage
 htmlcov/
+
+# Local-only scratch — parser archaeology and ad-hoc diagnostics
+# Lessons compressed into README Build Decisions; raw artifacts stay local
+debug_*.html
+diagnose*.py
 
 # Eval artifacts that shouldn't be committed
 runs/*.tmp

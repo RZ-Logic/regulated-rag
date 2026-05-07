@@ -16,6 +16,12 @@ CREATE TABLE IF NOT EXISTS chunks (
     embedding       vector(1024)
 );
 
+-- Defensive: ensure `embedding` is nullable even if the table was originally
+-- built through a UI that defaulted it to NOT NULL. The two-phase ingest
+-- contract (insert with NULL embedding -> embed -> update) requires this.
+-- Idempotent: no-op when the column is already nullable.
+ALTER TABLE chunks ALTER COLUMN embedding DROP NOT NULL;
+
 -- HNSW index for vector cosine similarity
 -- m=16, ef_construction=64 are pgvector defaults; sufficient for v0.1 scale (~2,500 chunks)
 CREATE INDEX IF NOT EXISTS chunks_embedding_idx
@@ -35,7 +41,10 @@ CREATE INDEX IF NOT EXISTS chunks_metadata_idx ON chunks USING gin (metadata);
 --    isolation in v0.1 — this is a single shared corpus.
 -- 2. The `embedding` column is nullable to allow chunks to be ingested in two
 --    phases: chunk + insert first, embed + update later. This makes ingestion
---    resumable on API failure.
+--    resumable on API failure. The explicit ALTER above protects against the
+--    Supabase Table Editor UI which defaults "Is Nullable" to off; that
+--    default bit us during the May 4, 2026 build (caught at hour 4 ingest
+--    via NotNullViolation, fixed via this same ALTER).
 -- 3. Voyage `voyage-3-large` produces 1024-dimensional vectors. If the embedder
 --    changes, this dimension MUST change in lockstep — pgvector will reject
 --    inserts of differently-dimensioned vectors.

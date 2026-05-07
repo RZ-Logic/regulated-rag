@@ -1,0 +1,901 @@
+{
+  "version": "v0.1.0-handgrading-run1",
+  "graded_at": "2026-05-06",
+  "grader": "Rizwan Ahmed",
+  "source_transcripts": "runs\\baseline-v0.1.jsonl",
+  "instructions": "Fill in faithful (bool), answer_relevant (bool), and classification (one of: hierarchical | contextual | off_topic). Set graded_at to ISO timestamp and grader to your name when done. The README pulls the aggregate from this file.",
+  "queries": [
+    {
+      "id": "fdcpa-001",
+      "query": "Can a debt collector call me before 8am or after 9pm?",
+      "expected_citations": [
+        "§ 805(a)(1)"
+      ],
+      "cited_section_refs": [
+        "§ 805(a)(1)",
+        "§ 805(a)(1)",
+        "§ 805(a)",
+        "§ 805(a)(1)"
+      ],
+      "claims": [
+        {
+          "claim_index": 0,
+          "claim_text": "A debt collector may not communicate with a consumer at any unusual time or place, or a time known (or which should be known) to be inconvenient to the consumer.",
+          "cited_chunk_ids": [
+            282
+          ],
+          "cited_section_refs": [
+            "§ 805(a)(1)"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        },
+        {
+          "claim_index": 1,
+          "claim_text": "In the absence of knowledge of circumstances to the contrary, a debt collector must assume that the convenient time for communicating with a consumer is after 8 o'clock AM and before 9 o'clock PM, local time at the consumer's location — meaning calls before 8 AM or after 9 PM are generally not allowed.",
+          "cited_chunk_ids": [
+            282
+          ],
+          "cited_section_refs": [
+            "§ 805(a)(1)"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        },
+        {
+          "claim_index": 2,
+          "claim_text": "Without the prior consent of the consumer given directly to the debt collector, or the express permission of a court of competent jurisdiction, a debt collector may not communicate with a consumer in connection with the collection of any debt outside of these permitted hours.",
+          "cited_chunk_ids": [
+            281,
+            282
+          ],
+          "cited_section_refs": [
+            "§ 805(a)",
+            "§ 805(a)(1)"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        }
+      ],
+      "extra_citations": [
+        {
+          "section_ref": "§ 805(a)",
+          "chunk_ids": [
+            281
+          ],
+          "classification": "hierarchical",
+          "notes": ""
+        }
+      ],
+      "overall_quality": null,
+      "notes": ""
+    },
+    {
+      "id": "fdcpa-002",
+      "query": "What conduct does the FDCPA prohibit as harassment by debt collectors?",
+      "expected_citations": [
+        "§ 806",
+        "§ 806(1)",
+        "§ 806(2)",
+        "§ 806(3)",
+        "§ 806(5)",
+        "§ 806(6)"
+      ],
+      "cited_section_refs": [
+        "§ 806",
+        "§ 806",
+        "§ 802(a)"
+      ],
+      "claims": [
+        {
+          "claim_index": 0,
+          "claim_text": "Under the FDCPA, a debt collector may not engage in any conduct the natural consequence of which is to harass, oppress, or abuse any person in connection with the collection of a debt.",
+          "cited_chunk_ids": [
+            292
+          ],
+          "cited_section_refs": [
+            "§ 806"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        },
+        {
+          "claim_index": 1,
+          "claim_text": "The prohibition on harassment is broadly applied and is not limited only to the specific examples listed in § 806 — the listed conduct is provided without limiting the general application of the harassment prohibition.",
+          "cited_chunk_ids": [
+            292
+          ],
+          "cited_section_refs": [
+            "§ 806"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        },
+        {
+          "claim_index": 2,
+          "claim_text": "The FDCPA's harassment provisions exist in part because abusive debt collection practices contribute to personal bankruptcies, marital instability, loss of jobs, and invasions of individual privacy.",
+          "cited_chunk_ids": [
+            260
+          ],
+          "cited_section_refs": [
+            "§ 802(a)"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        }
+      ],
+      "extra_citations": [
+        {
+          "section_ref": "§ 802(a)",
+          "chunk_ids": [
+            260
+          ],
+          "classification": "contextual",
+          "notes": ""
+        }
+      ],
+      "overall_quality": null,
+      "notes": ""
+    },
+    {
+      "id": "fdcpa-003",
+      "query": "What information must a debt collector send me to validate a debt?",
+      "expected_citations": [
+        "§ 809(a)"
+      ],
+      "cited_section_refs": [
+        "§ 809(a)",
+        "§ 809(a)(3)",
+        "§ 809(a)(4)",
+        "§ 809(a)(5)",
+        "§ 809(b)"
+      ],
+      "claims": [
+        {
+          "claim_index": 0,
+          "claim_text": "Within five days after the initial communication with a consumer, a debt collector must send a written notice containing specific information about the debt, unless that information was already included in the initial communication or the consumer has paid the debt.",
+          "cited_chunk_ids": [
+            325
+          ],
+          "cited_section_refs": [
+            "§ 809(a)"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        },
+        {
+          "claim_index": 1,
+          "claim_text": "The notice must include a statement that unless the consumer disputes the validity of the debt (or any portion thereof) within thirty days after receipt of the notice, the debt will be assumed to be valid by the debt collector.",
+          "cited_chunk_ids": [
+            328
+          ],
+          "cited_section_refs": [
+            "§ 809(a)(3)"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        },
+        {
+          "claim_index": 2,
+          "claim_text": "The notice must include a statement that if the consumer notifies the debt collector **in writing** within the thirty-day period that the debt (or any portion) is disputed, the debt collector will obtain verification of the debt or a copy of a judgment, and a copy of such verification or judgment will be mailed to the consumer.",
+          "cited_chunk_ids": [
+            329
+          ],
+          "cited_section_refs": [
+            "§ 809(a)(4)"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        },
+        {
+          "claim_index": 3,
+          "claim_text": "The notice must also include a statement that, upon the consumer's written request within the thirty-day period, the debt collector will provide the name and address of the original creditor, if different from the current creditor.",
+          "cited_chunk_ids": [
+            330
+          ],
+          "cited_section_refs": [
+            "§ 809(a)(5)"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        },
+        {
+          "claim_index": 4,
+          "claim_text": "If the consumer notifies the debt collector in writing within the thirty-day period that the debt is disputed, or requests the name and address of the original creditor, the debt collector must cease collection of the debt (or the disputed portion) until it obtains verification of the debt, a copy of a judgment, or the name and address of the original creditor, and mails that information to the consumer.",
+          "cited_chunk_ids": [
+            331
+          ],
+          "cited_section_refs": [
+            "§ 809(b)"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        }
+      ],
+      "extra_citations": [
+        {
+          "section_ref": "§ 809(a)(3)",
+          "chunk_ids": [
+            328
+          ],
+          "classification": "hierarchical",
+          "notes": ""
+        },
+        {
+          "section_ref": "§ 809(a)(4)",
+          "chunk_ids": [
+            329
+          ],
+          "classification": "hierarchical",
+          "notes": ""
+        },
+        {
+          "section_ref": "§ 809(a)(5)",
+          "chunk_ids": [
+            330
+          ],
+          "classification": "hierarchical",
+          "notes": ""
+        },
+        {
+          "section_ref": "§ 809(b)",
+          "chunk_ids": [
+            331
+          ],
+          "classification": "contextual",
+          "notes": ""
+        }
+      ],
+      "overall_quality": null,
+      "notes": ""
+    },
+    {
+      "id": "fdcpa-004",
+      "query": "Can a debt collector contact me at my workplace?",
+      "expected_citations": [
+        "§ 805(a)(3)"
+      ],
+      "cited_section_refs": [
+        "§ 805(a)",
+        "§ 805(a)(3)",
+        "§ 805(b)"
+      ],
+      "claims": [
+        {
+          "claim_index": 0,
+          "claim_text": "Generally, a debt collector may not communicate with a consumer in connection with the collection of any debt without the prior consent of the consumer given directly to the debt collector or the express permission of a court of competent jurisdiction.",
+          "cited_chunk_ids": [
+            281
+          ],
+          "cited_section_refs": [
+            "§ 805(a)"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        },
+        {
+          "claim_index": 1,
+          "claim_text": "Specifically, a debt collector is prohibited from contacting you at your place of employment if the debt collector knows or has reason to know that your employer prohibits you from receiving such communications.",
+          "cited_chunk_ids": [
+            284
+          ],
+          "cited_section_refs": [
+            "§ 805(a)(3)"
+          ],
+          "faithful": false,
+          "answer_relevant": true,
+          "notes": "prohibition verb not in cited chunk; § 805(a) chapeau (also retrieved, chunk 281, rank 4) needed for grounding"
+        },
+        {
+          "claim_index": 2,
+          "claim_text": "Additionally, without prior consumer consent, a court's express permission, or as reasonably necessary to effectuate a post-judgment judicial remedy, a debt collector may not communicate with any person other than the consumer, their attorney, a consumer reporting agency, the creditor, or the attorneys of the creditor or debt collector.",
+          "cited_chunk_ids": [
+            285
+          ],
+          "cited_section_refs": [
+            "§ 805(b)"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        }
+      ],
+      "extra_citations": [
+        {
+          "section_ref": "§ 805(a)",
+          "chunk_ids": [
+            281
+          ],
+          "classification": "hierarchical",
+          "notes": ""
+        },
+        {
+          "section_ref": "§ 805(b)",
+          "chunk_ids": [
+            285
+          ],
+          "classification": "hierarchical",
+          "notes": ""
+        }
+      ],
+      "overall_quality": null,
+      "notes": ""
+    },
+    {
+      "id": "fdcpa-005",
+      "query": "What happens if I tell a debt collector that I have an attorney?",
+      "expected_citations": [
+        "§ 805(a)(2)"
+      ],
+      "cited_section_refs": [
+        "§ 805(a)(2)",
+        "§ 805(a)(2)",
+        "§ 805(b)",
+        "§ 804(6)"
+      ],
+      "claims": [
+        {
+          "claim_index": 0,
+          "claim_text": "Once a debt collector knows you are represented by an attorney with respect to the debt and has knowledge of (or can readily ascertain) your attorney's name and address, the debt collector must stop communicating directly with you and instead communicate only with your attorney.",
+          "cited_chunk_ids": [
+            283
+          ],
+          "cited_section_refs": [
+            "§ 805(a)(2)"
+          ],
+          "faithful": false,
+          "answer_relevant": true,
+          "notes": "prohibition verb + 'communicate with attorney instead' not in cited chunk; § 805(a) chapeau NOT in retrieved top-5 (rank-4 was § 807(3), unrelated). Retrieval-side grounding gap, stronger than fdcpa-004."
+        },
+        {
+          "claim_index": 1,
+          "claim_text": "The debt collector may still contact you directly if your attorney fails to respond within a reasonable period of time to a communication from the debt collector, or if your attorney consents to direct communication with you.",
+          "cited_chunk_ids": [
+            283
+          ],
+          "cited_section_refs": [
+            "§ 805(a)(2)"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        },
+        {
+          "claim_index": 2,
+          "claim_text": "More broadly, when it comes to third parties, a debt collector may not communicate with anyone other than you, your attorney, a consumer reporting agency (if permitted by law), the creditor, the creditor's attorney, or the debt collector's own attorney — unless you give prior consent, a court grants permission, or it is reasonably necessary to carry out a post-judgment judicial remedy.",
+          "cited_chunk_ids": [
+            285
+          ],
+          "cited_section_refs": [
+            "§ 805(b)"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        },
+        {
+          "claim_index": 3,
+          "claim_text": "Additionally, once the debt collector knows you are represented by an attorney regarding the subject debt and can ascertain that attorney's contact information, the debt collector must not communicate with any other person (such as third parties seeking your location) except through that attorney, unless the attorney fails to respond within a reasonable time.",
+          "cited_chunk_ids": [
+            280
+          ],
+          "cited_section_refs": [
+            "§ 804(6)"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        }
+      ],
+      "extra_citations": [
+        {
+          "section_ref": "§ 804(6)",
+          "chunk_ids": [
+            280
+          ],
+          "classification": "contextual",
+          "notes": ""
+        },
+        {
+          "section_ref": "§ 805(b)",
+          "chunk_ids": [
+            285
+          ],
+          "classification": "off_topic",
+          "notes": ""
+        }
+      ],
+      "overall_quality": null,
+      "notes": ""
+    },
+    {
+      "id": "fdcpa-006",
+      "query": "How does the FDCPA define a debt collector?",
+      "expected_citations": [
+        "§ 803(6)"
+      ],
+      "cited_section_refs": [
+        "§ 803(6)",
+        "§ 803(6)",
+        "§ 803(6)"
+      ],
+      "claims": [
+        {
+          "claim_index": 0,
+          "claim_text": "A \"debt collector\" means any person who uses any instrumentality of interstate commerce or the mails in any business the principal purpose of which is the collection of any debts, or who regularly collects or attempts to collect, directly or indirectly, debts owed or due or asserted to be owed or due another.",
+          "cited_chunk_ids": [
+            271
+          ],
+          "cited_section_refs": [
+            "§ 803(6)"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        },
+        {
+          "claim_index": 1,
+          "claim_text": "The term also includes any creditor who, in the process of collecting his own debts, uses any name other than his own which would indicate that a third person is collecting or attempting to collect such debts.",
+          "cited_chunk_ids": [
+            271
+          ],
+          "cited_section_refs": [
+            "§ 803(6)"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        },
+        {
+          "claim_index": 2,
+          "claim_text": "For the purpose of § 1692f(6), the term \"debt collector\" also includes any person who uses any instrumentality of interstate commerce or the mails in any business the principal purpose of which is the enforcement of security interests.",
+          "cited_chunk_ids": [
+            271
+          ],
+          "cited_section_refs": [
+            "§ 803(6)"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        }
+      ],
+      "extra_citations": [],
+      "overall_quality": null,
+      "notes": ""
+    },
+    {
+      "id": "fdcpa-007",
+      "query": "How do I get a debt collector to stop calling me?",
+      "expected_citations": [
+        "§ 805(c)"
+      ],
+      "cited_section_refs": [
+        "§ 805(c)",
+        "§ 805(a)(2)",
+        "§ 804(6)"
+      ],
+      "claims": [
+        {
+          "claim_index": 0,
+          "claim_text": "To get a debt collector to stop contacting you, notify the debt collector **in writing** that you wish the debt collector to cease further communication with you. Once they receive this written notice, they are legally required to stop communicating with you about the debt.",
+          "cited_chunk_ids": [
+            286
+          ],
+          "cited_section_refs": [
+            "§ 805(c)"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        },
+        {
+          "claim_index": 1,
+          "claim_text": "Alternatively, if you hire an attorney to represent you regarding the debt, the debt collector must stop communicating with you directly and can only communicate with your attorney (unless the attorney fails to respond within a reasonable period of time or consents to direct contact with you).",
+          "cited_chunk_ids": [
+            283,
+            280
+          ],
+          "cited_section_refs": [
+            "§ 805(a)(2)",
+            "§ 804(6)"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        }
+      ],
+      "extra_citations": [
+        {
+          "section_ref": "§ 804(6)",
+          "chunk_ids": [
+            280
+          ],
+          "classification": "contextual",
+          "notes": ""
+        },
+        {
+          "section_ref": "§ 805(a)(2)",
+          "chunk_ids": [
+            283
+          ],
+          "classification": "contextual",
+          "notes": ""
+        }
+      ],
+      "overall_quality": null,
+      "notes": ""
+    },
+    {
+      "id": "fdcpa-008",
+      "query": "Can a debt collector tell my family or my employer about my debt?",
+      "expected_citations": [
+        "§ 805(b)"
+      ],
+      "cited_section_refs": [
+        "§ 805(b)",
+        "§ 805(b)",
+        "§ 805(a)(3)",
+        "§ 804(6)"
+      ],
+      "claims": [
+        {
+          "claim_index": 0,
+          "claim_text": "Generally, a debt collector may NOT communicate with third parties (such as family members or employers) about your debt without your prior consent, the express permission of a court, or as reasonably necessary to effectuate a post-judgment judicial remedy.",
+          "cited_chunk_ids": [
+            285
+          ],
+          "cited_section_refs": [
+            "§ 805(b)"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        },
+        {
+          "claim_index": 1,
+          "claim_text": "The only third parties a debt collector is permitted to contact (under specific circumstances) include the consumer's attorney, a consumer reporting agency if otherwise permitted by law, the creditor, the creditor's attorney, or the debt collector's own attorney.",
+          "cited_chunk_ids": [
+            285
+          ],
+          "cited_section_refs": [
+            "§ 805(b)"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        },
+        {
+          "claim_index": 2,
+          "claim_text": "Additionally, a debt collector is prohibited from communicating with a consumer at their place of employment if the debt collector knows or has reason to know that the consumer's employer prohibits the consumer from receiving such communications.",
+          "cited_chunk_ids": [
+            284
+          ],
+          "cited_section_refs": [
+            "§ 805(a)(3)"
+          ],
+          "faithful": false,
+          "answer_relevant": false,
+          "notes": "prohibition verb not in cited chunk; § 805(a) chapeau retrieved (rank 3, chunk 281) but uncited. Same pattern as fdcpa-004. Additionally, § 805(a)(3) is wrong rule for the query: question is § 805(b) territory (third-party disclosure); cited rule is consumer-side workplace contact. Off-topic."
+        },
+        {
+          "claim_index": 3,
+          "claim_text": "If the consumer is represented by an attorney regarding the subject debt, and the debt collector knows the attorney's name and address, the debt collector must communicate only with that attorney and not with other persons.",
+          "cited_chunk_ids": [
+            280
+          ],
+          "cited_section_refs": [
+            "§ 804(6)"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        }
+      ],
+      "extra_citations": [
+        {
+          "section_ref": "§ 804(6)",
+          "chunk_ids": [
+            280
+          ],
+          "classification": "contextual",
+          "notes": ""
+        },
+        {
+          "section_ref": "§ 805(a)(3)",
+          "chunk_ids": [
+            284
+          ],
+          "classification": "off_topic",
+          "notes": ""
+        }
+      ],
+      "overall_quality": null,
+      "notes": ""
+    },
+    {
+      "id": "fdcpa-009",
+      "query": "Can a debt collector threaten to have me arrested?",
+      "expected_citations": [
+        "§ 807(4)"
+      ],
+      "cited_section_refs": [
+        "§ 807(4)",
+        "§ 807(5)",
+        "§ 806"
+      ],
+      "claims": [
+        {
+          "claim_index": 0,
+          "claim_text": "A debt collector is prohibited from representing or implying that nonpayment of a debt will result in the arrest or imprisonment of any person, unless such action is actually lawful AND the debt collector or creditor genuinely intends to take that action.",
+          "cited_chunk_ids": [
+            303
+          ],
+          "cited_section_refs": [
+            "§ 807(4)"
+          ],
+          "faithful": false,
+          "answer_relevant": true,
+          "notes": "chapeau-grounding pattern; § 807(4) chunk is a noun phrase, prohibition verb in uncited (and unretrieved) chapeau. Same finding as claim 2"
+        },
+        {
+          "claim_index": 1,
+          "claim_text": "Additionally, a debt collector may not threaten to take any action that cannot legally be taken or that is not intended to be taken, which would include threats of arrest that are not legally supportable.",
+          "cited_chunk_ids": [
+            304
+          ],
+          "cited_section_refs": [
+            "§ 807(5)"
+          ],
+          "faithful": false,
+          "answer_relevant": true,
+          "notes": "chapeau § 807 not retrieved (top-5: § 808(3), § 807(4), § 806, § 807(5), § 811(a)); 'may not' verb lives only in chapeau. Same severity as fdcpa-005. Pattern now spans § 805(a) and § 807 chapeaux — structural chunker finding, not section-specific"
+        },
+        {
+          "claim_index": 2,
+          "claim_text": "More broadly, a debt collector may not engage in any conduct whose natural consequence is to harass, oppress, or abuse any person in connection with the collection of a debt.",
+          "cited_chunk_ids": [
+            292
+          ],
+          "cited_section_refs": [
+            "§ 806"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        }
+      ],
+      "extra_citations": [
+        {
+          "section_ref": "§ 806",
+          "chunk_ids": [
+            292
+          ],
+          "classification": "contextual",
+          "notes": ""
+        },
+        {
+          "section_ref": "§ 807(5)",
+          "chunk_ids": [
+            304
+          ],
+          "classification": "hierarchical",
+          "notes": ""
+        }
+      ],
+      "overall_quality": null,
+      "notes": ""
+    },
+    {
+      "id": "fdcpa-010",
+      "query": "Can a debt collector deposit my postdated check before the date on it?",
+      "expected_citations": [
+        "§ 808(2)",
+        "§ 808(3)",
+        "§ 808(4)"
+      ],
+      "cited_section_refs": [
+        "§ 808",
+        "§ 808(4)"
+      ],
+      "claims": [
+        {
+          "claim_index": 0,
+          "claim_text": "Under the FDCPA, a debt collector may not use unfair or unconscionable means to collect or attempt to collect any debt.",
+          "cited_chunk_ids": [
+            316
+          ],
+          "cited_section_refs": [
+            "§ 808"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        },
+        {
+          "claim_index": 1,
+          "claim_text": "Specifically, depositing or threatening to deposit any postdated check or other postdated payment instrument prior to the date on such check or instrument is a violation of the FDCPA.",
+          "cited_chunk_ids": [
+            320
+          ],
+          "cited_section_refs": [
+            "§ 808(4)"
+          ],
+          "faithful": false,
+          "answer_relevant": true,
+          "notes": ""
+        }
+      ],
+      "extra_citations": [
+        {
+          "section_ref": "§ 808",
+          "chunk_ids": [
+            316
+          ],
+          "classification": "hierarchical",
+          "notes": ""
+        }
+      ],
+      "overall_quality": null,
+      "notes": ""
+    },
+    {
+      "id": "fdcpa-011",
+      "query": "What does § 805 cover?",
+      "expected_citations": [
+        "§ 805",
+        "§ 805(a)"
+      ],
+      "cited_section_refs": [
+        "§ 805(a)",
+        "§ 805(a)(1)",
+        "§ 805(c)",
+        "§ 805(c)(1)",
+        "§ 805(c)(2)"
+      ],
+      "claims": [
+        {
+          "claim_index": 0,
+          "claim_text": "§ 805 covers communication with the consumer generally, providing that without the prior consent of the consumer given directly to the debt collector or the express permission of a court of competent jurisdiction, a debt collector may not communicate with a consumer in connection with the collection of any debt.",
+          "cited_chunk_ids": [
+            281
+          ],
+          "cited_section_refs": [
+            "§ 805(a)"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        },
+        {
+          "claim_index": 1,
+          "claim_text": "§ 805(a)(1) restricts debt collectors from communicating at any unusual time or place, or a time or place known to be inconvenient to the consumer. In the absence of knowledge of circumstances to the contrary, a debt collector shall assume that the convenient time for communicating with a consumer is after 8 a.m. and before 9 p.m. local time at the consumer's location.",
+          "cited_chunk_ids": [
+            282
+          ],
+          "cited_section_refs": [
+            "§ 805(a)(1)"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        },
+        {
+          "claim_index": 2,
+          "claim_text": "§ 805(c) covers ceasing communication: if a consumer notifies a debt collector in writing that the consumer refuses to pay a debt or wishes the debt collector to cease further communication, the debt collector shall not communicate further with the consumer with respect to such debt, with limited exceptions.",
+          "cited_chunk_ids": [
+            286
+          ],
+          "cited_section_refs": [
+            "§ 805(c)"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        },
+        {
+          "claim_index": 3,
+          "claim_text": "One exception to the ceasing communication rule allows the debt collector to advise the consumer that the debt collector's further efforts are being terminated.",
+          "cited_chunk_ids": [
+            287
+          ],
+          "cited_section_refs": [
+            "§ 805(c)(1)"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": "operative content (advising about termination) verbatim from chunk 287; 'exception' framing is structural metadata from § 805(c) cited in claim 3 — not a grounding gap, since the substantive permitted conduct is fully in the cited chunk."
+        },
+        {
+          "claim_index": 4,
+          "claim_text": "",
+          "cited_chunk_ids": [
+            288
+          ],
+          "cited_section_refs": [
+            "§ 805(c)(2)"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        }
+      ],
+      "extra_citations": [
+        {
+          "section_ref": "§ 805(a)(1)",
+          "chunk_ids": [
+            282
+          ],
+          "classification": "hierarchical",
+          "notes": ""
+        },
+        {
+          "section_ref": "§ 805(c)",
+          "chunk_ids": [
+            286
+          ],
+          "classification": "hierarchical",
+          "notes": ""
+        },
+        {
+          "section_ref": "§ 805(c)(1)",
+          "chunk_ids": [
+            287
+          ],
+          "classification": "hierarchical",
+          "notes": ""
+        },
+        {
+          "section_ref": "§ 805(c)(2)",
+          "chunk_ids": [
+            288
+          ],
+          "classification": "hierarchical",
+          "notes": ""
+        }
+      ],
+      "overall_quality": null,
+      "notes": ""
+    },
+    {
+      "id": "fdcpa-012",
+      "query": "If I tell the debt collector verbally to stop, do they have to listen, or do I need to put it in writing?",
+      "expected_citations": [
+        "§ 805(c)"
+      ],
+      "cited_section_refs": [
+        "§ 805(c)"
+      ],
+      "claims": [
+        {
+          "claim_index": 0,
+          "claim_text": "Under the FDCPA, for a debt collector to be required to cease communication, the consumer must notify the debt collector **in writing** that they refuse to pay the debt or wish the debt collector to stop communicating. A verbal request is not sufficient to trigger this legal obligation.",
+          "cited_chunk_ids": [
+            286
+          ],
+          "cited_section_refs": [
+            "§ 805(c)"
+          ],
+          "faithful": true,
+          "answer_relevant": true,
+          "notes": ""
+        }
+      ],
+      "extra_citations": [],
+      "overall_quality": null,
+      "notes": ""
+    }
+  ]
+}

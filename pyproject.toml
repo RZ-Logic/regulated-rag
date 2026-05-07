@@ -1,21 +1,25 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+ 
 [project]
 name = "regulated-rag"
-version = "0.1.0-dev"
+version = "0.1.0"
 description = "Citation-grounded, refusal-bounded retrieval for regulated-domain corpora"
-readme = "README.md"
-license = { text = "MIT" }
-authors = [
-    { name = "Rizwan Ahmed", email = "rizwan.ahmed109@gmail.com" }
-]
 requires-python = ">=3.12"
-
-[build-system]
-requires = ["setuptools>=68.0"]
-build-backend = "setuptools.build_meta"
-
+license = { text = "MIT" }
+dependencies = [
+  "anthropic",
+  "beautifulsoup4",
+  "cohere",
+  "pgvector",
+  "psycopg[binary]",
+  "python-dotenv",
+  "pyyaml",
+  "rank-bm25",
+  "requests",
+  "voyageai",
+]
+ 
 [tool.setuptools.packages.find]
 where = ["src"]
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-python_files = "test_*.py"
