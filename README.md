@@ -152,12 +152,12 @@ Run 1, May 5–6, 2026. Models: `voyage-3-large`, `rerank-v3.5`, `claude-sonnet-
 | **— NAMED_REGULATION_NOT_IN_CORPUS** | 3/3 (100%) | Reg F, GDPR, TILA queries refused before LLM call (regex pre-check) |
 | **— GENERATOR_DECLINED** | 0/2 (0%) | Path retained by design — see Chapeau-Grounding Gap |
 
-### Hand-graded metrics (32 claims across 12 in-corpus queries)
+### Hand-graded metrics (38 claims across 12 in-corpus queries)
 
 | Metric | Result | Notes |
 |---|---|---|
-| **Faithfulness** | 26/32 (81%) | 6 claims surfaced the chapeau-grounding pattern — see Chapeau-Grounding Gap |
-| **Answer relevance** | 31/32 (97%) | One off-topic claim on `fdcpa-008` (cited rule was § 805(a)(3) consumer-side; query was § 805(b) third-party territory) |
+| **Faithfulness** | 32/38 (84%) | 6 claims surfaced the chapeau-grounding pattern — see Chapeau-Grounding Gap |
+| **Answer relevance** | 37/38 (97%) | One off-topic claim on `fdcpa-008` (cited rule was § 805(a)(3) consumer-side; query was § 805(b) third-party territory) |
 
 ### Operational
 
@@ -175,7 +175,7 @@ The eval set ships in the repo as checked-in YAML. Anyone can clone and re-run. 
 
 The deterministic pass on run 1 ran cleanly: every cited chunk_id appeared in the retrieved set, no grounding-validator firings, refusal taxonomy worked as designed for two of three constructible paths. The set-membership commitment was delivered.
 
-Hand-grading 32 claims against cited chunk text surfaced what's one level deeper.
+Hand-grading 38 claims against cited chunk text surfaced what's one level deeper.
 
 ### What hand-grading surfaced
 
@@ -285,7 +285,7 @@ These are held back because the engineering case for them hasn't been made by th
 - **No Anthropic-style Contextual Retrieval (Sept 2024) in v0.1.** Each chunk is embedded with chunk text + a structural prefix derived from metadata (section number, title), not with an LLM-generated context summary. The structural prefix is metadata-derived and free; Contextual Retrieval costs one LLM call per chunk. v0.2 adopts it after measuring the structural baseline against it — the *measurement* is what justifies adopting the technique.
 - **No fine-tuned reranker.** Cohere's general-purpose `rerank-v3.5` is the v0.1 choice. A domain-fine-tuned reranker on regulated-domain queries needs training data this repo doesn't have at v0.1 scale. v1.0 has the data after v0.1 + v0.2 hand-graded corpora accumulate.
 - **No agent loop.** The system answers a question or refuses; it does not decompose multi-hop questions into sub-queries. Multi-hop and agentic retrieval are v2 concerns and need an eval methodology that doesn't exist yet — chained retrievals create chained failure modes the v0.1 eval set isn't designed to measure.
-- **No LLM-as-judge for faithfulness/answer-relevance.** v0.1 hand-grades. The architectural argument is bounded stochasticity; adding an LLM-judge to the *eval* layer puts another stochastic stage in the audit trail. Hand-grading 30–35 claims takes ~20 minutes — and the audit trail can't outsource judgment to another stochastic component without measuring its drift first. v1.0 with a 50–100-query eval set introduces LLM-as-judge with the judge alias-pinned and `request_id`s logged, calibrated against the v0.1 hand-graded baseline so judge drift can be measured against ground truth.
+- **No LLM-as-judge for faithfulness/answer-relevance.** v0.1 hand-grades. The architectural argument is bounded stochasticity; adding an LLM-judge to the *eval* layer puts another stochastic stage in the audit trail. Hand-grading ~38 claims takes ~30 minutes — and the audit trail can't outsource judgment to another stochastic component without measuring its drift first. v1.0 with a 50–100-query eval set introduces LLM-as-judge with the judge alias-pinned and `request_id`s logged, calibrated against the v0.1 hand-graded baseline so judge drift can be measured against ground truth.
 - **No production observability.** Logging is sufficient for development and eval reproduction. Latency percentiles, cost dashboards, drift detection — those are v1.0 deliverables when this is consumed by a service rather than a CLI.
 
 ### Stubs and fixtures by design
